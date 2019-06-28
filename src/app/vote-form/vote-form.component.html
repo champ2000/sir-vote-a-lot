@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-12">
+    <h4 *ngIf="question">{{ question }}</h4>
+    <div class="form-group radio" *ngIf="answers">
+            <div *ngFor="let option of answers; let i=index">
+              <div class="radio" *ngIf="option.length >= 1">
+                    <input type="radio" name="radiogroup" 
+                    name="{{option}}"
+                    [value]="option" 
+                    [checked]="option === selectedAnswer"
+                    (change)="onSelectionChange(option)">
+                    <label class="pl-2" for="{{option}}">{{option}}</label>
+              </div>
+            </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-auto">
+  <div class="col-12 text-right">
+      <button type="submit" class="btn btn-success" *ngIf="selectedAnswer" (click)="onSubmit()">Vote</button>
+    </div>
+</div>

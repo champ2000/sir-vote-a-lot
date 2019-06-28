@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-12">
+  <form [formGroup]="voteForm">
+  <div class="form-group">
+      <label>Question</label>
+      <input type="text" formControlName="question" class="form-control" [readonly]="f.question.errors" />
+  </div>
+
+  <div formArrayName="answers" *ngFor="let item of answersArray.controls; let i = index;">
+    <div class="form-group">
+      <div class="input-group mb-3">
+          <input type="text" class="form-control" [formControlName]="i" placeholder="Add answer here!" [readonly]="f.answers.controls[i].errors">
+          <div class="input-group-append" *ngIf="i>=1">
+              <button class="btn btn-outline-secondary" type="button" (click)=removeItem(i)>X</button>
+          </div>
+          <div class="input-group-append" *ngIf="i == answersArray?.length-1">
+              <button class="btn btn-primary" (click)="addAnswer()" *ngIf="answersArray?.length <= 9">Add</button>
+          </div>
+      </div>
+    </div>
+  </div>
+      </form>
+ </div>
+</div> 
+<div class="row mt-auto">
+  <div class="col-12">
+    <div class="text-right">
+          <p>{{answersArray?.length}}/10 Answers added</p>
+          <button class="btn btn-secondary" type="reset" (click)="onReset()">Reset</button>
+    </div>
+  </div>
+</div>
+
