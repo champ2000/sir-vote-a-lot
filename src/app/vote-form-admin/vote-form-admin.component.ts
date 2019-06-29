@@ -13,7 +13,7 @@ export class VoteFormAdminComponent implements OnInit {
 
   ngOnInit() {
     this.voteForm = this.formBuilder.group({
-      question: new FormControl('', Validators.maxLength(8)),
+      question: new FormControl('', Validators.maxLength(80)),
       answers: this.formBuilder.array([this.createAnswer()])
     });
     this.onChange();
@@ -29,7 +29,7 @@ export class VoteFormAdminComponent implements OnInit {
   }
 
   createAnswer() {
-    return this.formBuilder.control('', Validators.maxLength(8));
+    return this.formBuilder.control('', Validators.maxLength(80));
   }
 
   addAnswer(): void {
