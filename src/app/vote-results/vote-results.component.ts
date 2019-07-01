@@ -38,7 +38,6 @@ export class VoteResultsComponent implements OnInit {
 
   ngOnInit() {
     this.voteDataService.results.subscribe(votes => {
-      console.log(votes);
       this._votedAnswers = votes;
       this.provideCount();
     });

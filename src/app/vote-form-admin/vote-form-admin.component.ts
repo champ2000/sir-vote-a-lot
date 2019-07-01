@@ -13,27 +13,31 @@ export class VoteFormAdminComponent implements OnInit {
 
   ngOnInit() {
     this.voteForm = this.formBuilder.group({
-      question: new FormControl('', Validators.maxLength(80)),
-      answers: this.formBuilder.array([this.createAnswer()])
+      question: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      answers: this.formBuilder.array([this.createAnswer(true), this.createAnswer(true)])
     });
     this.onChange();
   }
 
   onChange(): void {
     this.voteForm.valueChanges.subscribe(val => {
-      if(val.question && val.question.length>=1 && val.answers.length >=2) {
+        if (this.voteForm.status === "VALID" && this.answersArray.length >= 2) {
           this.voteDataService.changeMessage(val.question);
           this.voteDataService.changeAnswers(val.answers);
-      }
+        }
     })
   }
 
-  createAnswer() {
-    return this.formBuilder.control('', Validators.maxLength(80));
+  createAnswer(first:boolean) {
+    if (first || this.f.answers.value.length <= 1){
+      return this.formBuilder.control('', [Validators.maxLength(80), Validators.required]);
+    } else {
+      return this.formBuilder.control('', [Validators.maxLength(80)]);
+    }
   }
 
   addAnswer(): void {
-    this.answersArray.push(this.createAnswer());
+    this.answersArray.push(this.createAnswer(false));
   }
 
   removeItem(id:number):void {
@@ -47,8 +51,10 @@ export class VoteFormAdminComponent implements OnInit {
     this.voteDataService.resetVotes();
   }
 
-  get f() { return this.voteForm.controls; }
-  get answersArray(): FormArray{
+  get f() { 
+    return this.voteForm.controls; 
+  }
+  get answersArray(): FormArray {
 	  return this.voteForm.get('answers') as FormArray;
   }
 
