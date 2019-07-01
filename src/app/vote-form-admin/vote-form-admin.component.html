@@ -1,46 +1,45 @@
 <div class="row">
     <div class="col-12">
-  <form [formGroup]="voteForm">
-  <div class="form-group">
-      <label>Question</label>
-      <input type="text" formControlName="question" class="form-control" [readonly]="f.question.errors && f.question.errors.maxlength" required >
-      <div *ngIf="f.question.invalid && (f.question.dirty || f.question.touched)"
-        class="alert alert-danger mt-2">
-        <div *ngIf="f.question.errors.required">
-          Question is required
+      <form [formGroup]="voteForm">
+        <div class="form-group">
+            <label>Question</label>
+            <input type="text" formControlName="question" class="form-control" [readonly]="f.question.errors && f.question.errors.maxlength" required >
+            <div *ngIf="f.question.invalid && (f.question.dirty || f.question.touched)"
+              class="alert alert-danger mt-2">
+              <div *ngIf="f.question.errors.required">
+                Question is required
+              </div>
+              <div *ngIf="f.question.errors.maxlength">
+                Question must be less than 80 characters
+              </div>
+            </div>
         </div>
-        <div *ngIf="f.question.errors.maxlength">
-          Question must be less than 80 characters
-        </div>
-      </div>
-  </div>
-
-  <div formArrayName="answers" *ngFor="let item of answersArray.controls; let i = index;">
-    <div class="form-group">
-      <div class="input-group mb-3">
-          <input type="text" class="form-control" [formControlName]="i" placeholder="Add answer here!" 
-            [readonly]="f.answers.controls[i].errors && f.answers.controls[i].errors.maxlength">
-          <div class="input-group-append" *ngIf="i>=1">
-              <button class="btn btn-outline-secondary" type="button" (click)=removeItem(i)>X</button>
+        <div formArrayName="answers" *ngFor="let item of answersArray.controls; let i = index;">
+          <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" [formControlName]="i" placeholder="Add answer here!" 
+                  [readonly]="f.answers.controls[i].errors && f.answers.controls[i].errors.maxlength">
+                <div class="input-group-append" *ngIf="i>=1">
+                    <button class="btn btn-outline-secondary" type="button" (click)=removeItem(i)>X</button>
+                </div>
+                <div class="input-group-append" *ngIf="i == answersArray?.length-1">
+                    <button class="btn btn-primary" (click)="addAnswer()" *ngIf="answersArray?.length <= 9">Add</button>
+                </div>
+            </div>
+            <div *ngIf="f.answers.controls[i].invalid && (f.answers.controls[i].dirty || f.answers.controls[i].touched)"
+            class="alert alert-danger mt-2">
+              <div *ngIf="f.answers.controls[i].errors.required">
+                You must add two answers to proceed
+              </div>
+              <div *ngIf="f.answers.controls[i].errors.minLength">
+                Answers must be more than 1 character
+              </div>
+              <div *ngIf="f.answers.controls[i].errors.maxlength">
+                Answers must no more than 80 characters
+              </div>
+            </div>
           </div>
-          <div class="input-group-append" *ngIf="i == answersArray?.length-1">
-              <button class="btn btn-primary" (click)="addAnswer()" *ngIf="answersArray?.length <= 9">Add</button>
-          </div>
-      </div>
-      <div *ngIf="f.answers.controls[i].invalid && (f.answers.controls[i].dirty || f.answers.controls[i].touched)"
-      class="alert alert-danger mt-2">
-        <div *ngIf="f.answers.controls[i].errors.required">
-          You must add two answers to proceed
         </div>
-        <div *ngIf="f.answers.controls[i].errors.minLength">
-          Answers must be more than 1 character
-        </div>
-        <div *ngIf="f.answers.controls[i].errors.maxlength">
-          Answers must no more than 80 characters
-        </div>
-      </div>
-    </div>
-  </div>
       </form>
  </div>
 </div> 

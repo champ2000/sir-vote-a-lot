@@ -1,11 +1,19 @@
-<div *ngIf="barChartLabels.length >= 1">
-        <canvas baseChart 
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [plugins]="barChartPlugins"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-        </canvas>
+<div class="row" *ngIf="_votedAnswers.length >= 1">
+    <div class="col-12">
+                <canvas baseChart 
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+                </canvas>
+    </div>
+</div>
+<div class="row mt-auto" *ngIf="_votedAnswers.length >=1">
+    <div class="col-12">
+      <div class="text-right">
+            <p>{{_votedAnswers?.length}}/10 Votes added</p>
+      </div>
 </div>
 
