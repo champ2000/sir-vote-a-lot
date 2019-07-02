@@ -1,6 +1,16 @@
-# FormDemo
+# Sir-vote-alot
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.4.
+By Christopher Hampton
+
+TODO 
+
+Tidy up the validation in the admin form
+Add e2e Tests (using Cypress)
+
+## Setup
+
+Run `npm install` to install the necessary dependancies. 
 
 ## Development server
 
